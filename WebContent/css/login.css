@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+body{
+				margin:0px;
+				padding:0px;
+				font-size:12px;
+				color:#9297a1;
+				background-color:#fafafa;
+				overflow:hidden;
+				text-align:center;
+			}
+			
+			#container{
+				width:980px;
+				margin:0 auto;
+			}
+			#login{
+				background-image:url(../image/login.png);
+				width:790px;
+				height:326px;
+				margin:120px auto;
+				padding-top: 1px;
+			}
+			
+			#form{
+				margin-top:150px;
+			}
+			
+			#input div{
+				margin-bottom:5px;
+
+			}
+			#button input{
+				color:#6d727d;
+				background-color:#b4bfd6;
+				border:0px;	
+				
+			}
+			
+			#input div input{
+				width:120px;
+				height:16px;
+				background-color:#b4bfd6;
+				color:#6d727d;
+				border:0px;	
+			}
+			

@@ -1,0 +1,45 @@
+body{
+		margin:0px;
+		padding:0px;
+		font-size:20px;
+		color:#6D727D;
+		background-color:#fafafa;
+		overflow:hidden;
+		text-align:left;
+		background-image:url(../image/bg.png);
+		
+	}
+	#main{
+		margin-left:50px;
+		margin-top:30px;
+	}
+	#notice{
+		width:70%;
+		line-height: 25px;
+	}
+	#formtable{
+		font-size:15px;
+	}
+	#formtable input{
+		color:#6D727D;
+	}
+	.td1{
+		width:100px;
+	}
+	#formsubmit{
+		width:300px;
+		text-align:center;
+		margin-top:15px;
+		margin-left: 50px;
+	}
+	.userinput{
+		width:210px;
+	}
+	.btn{
+		background-position:center;
+		font:bold 12px;
+		width:80px;
+		cursor:hand;
+		height:25px;
+		border-width:0;/*按钮必须有此样式，才会除掉按钮背景*/
+	}

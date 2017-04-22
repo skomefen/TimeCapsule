@@ -1,0 +1,55 @@
+@CHARSET "UTF-8";
+body{
+		margin:0px;
+		padding:0px;
+		font-size:20px;
+		color:#6D727D;
+		background-color:#fafafa;
+		text-align:center;
+		background-image:url(../image/bg.png);
+		
+	}
+	a:link{text-decoration:none; color:#B4BFD6;}
+	a:visited{text-decoration:none; color:#B4BFD6;}
+	a:hover{text-decoration:underline; color:#6D727D;}
+	a:active{text-decoration:overline; color:#6D727D;}
+	#main div table td.id{
+		width:40%;
+	}
+	#container{
+		width:85%;
+		margin:0 auto;
+	}
+	#item{
+		float:right;
+	}
+	#main{
+		font-size:15px;
+		float:none;
+		color:#6D727D;
+	}
+	#main input{
+		color:#9297a1;
+		border-color :#6D727D; 	
+		border-width:1px;
+		border-style: solid;
+	}
+	#main div table tr td:first-child{
+		width:45%;
+
+	} 
+	#main div table textarea{
+		width:85%;
+		color:#9297a1;
+		border-color :#9297a1; 	
+		resize:none;
+	} 
+	.tableinput input{
+		width:85%;
+		
+	}
+	#fileinput input{
+	}
+	.clear{ 
+		clear:both
+	}
