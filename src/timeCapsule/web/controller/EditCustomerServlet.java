@@ -80,7 +80,7 @@ public class EditCustomerServlet extends HttpServlet {
 		UserBusinessService service = sf.createService(UserBusinessService.class, userbySession);
 		
 		try {
-			service.updateUser(user);
+			service.updateUserWhereChangePasswd(user);
 			//6.如果serivce处理成功，跳转到网站的全局消息显示页面，为用户注册成功的消息
 			request.setAttribute("message", "修改成功！！<meta http-equiv='refresh' content='3;url="+request.getContextPath()+"/ListCustomerServlet'>");
 			request.getRequestDispatcher("/message.jsp").forward(request, response);

@@ -82,7 +82,14 @@ public class UserBusinessServiceImpl implements UserBusinessService {
 	public List<Privilege> getUserAllPrivilege(User user) {
 		return dao.getUserAllPrivilege(user);
 	}
-
+	
+	@Override
+	public void updateClientUser(User user) throws UserExistException, EmailExistException{
+		if(!validate(user)){
+			dao.update(user);
+		}
+	}
+	
 	/****************************************
 	 * 
 	 * 管理页面
@@ -102,7 +109,7 @@ public class UserBusinessServiceImpl implements UserBusinessService {
 	}
 
 	@Permission("管理员权限")
-	public void updateUser(User user) throws UserExistException, EmailExistException{
+	public void updateUserWhereChangePasswd(User user) throws UserExistException, EmailExistException{
 		if(!validate(user)){
 			user.setPassword(ServiceUtils.md5(user.getPassword()));
 			dao.update(user);

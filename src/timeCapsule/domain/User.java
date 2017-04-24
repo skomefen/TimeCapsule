@@ -6,6 +6,7 @@ public class User {
 	private String password;
 	private String email;
 	private String nickname;
+	private String autologinkey;
 	public String getId() {
 		return id;
 	}
@@ -35,6 +36,12 @@ public class User {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getAutologinkey() {
+		return autologinkey;
+	}
+	public void setAutologinkey(String autologinkey) {
+		this.autologinkey = autologinkey;
 	}
 	
 }

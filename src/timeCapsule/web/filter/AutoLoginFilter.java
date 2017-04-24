@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import sun.misc.BASE64Encoder;
 import timeCapsule.domain.User;
 import timeCapsule.factory.ConfigFactory;
+import timeCapsule.factory.ServiceFactory;
 import timeCapsule.service.UserBusinessService;
 import timeCapsule.service.impl.UserBusinessServiceImpl;
 import timeCapsule.utils.WebUtils;
@@ -38,7 +39,7 @@ public class AutoLoginFilter implements Filter{
 		if(user!=null){
 			
 			int validtime =config.getLoginexpirestime();
-			Cookie cookie = WebUtils.makeCookie(user.getUsername(), user.getPassword(), request.getContextPath(), key, validtime);
+			Cookie cookie = WebUtils.makeAutoLoginCookie(user.getUsername(), user.getPassword(), request.getContextPath(), key, validtime,user.getAutologinkey());
 			response.addCookie(cookie);
 			
 			chain.doFilter(request, response);
@@ -62,35 +63,45 @@ public class AutoLoginFilter implements Filter{
 		}
 		
 		//用户带了自动登录cookie检查cookie的有效期
-//		cookie值设为autologin=username:expirestime:md5(state:password:expirestime:username)
+//		cookie值设为autologin=username:expirestime:md5(state:password:expirestime:username:autologinkey)
 //		key:isOK
 		String values[] = autoLoginCookie.getValue().split("\\:");
 		if(values.length!=3){
 			chain.doFilter(request, response);
+			Cookie cookie = WebUtils.deleteCookie("autologin", request.getContextPath());
+			response.addCookie(cookie);
 			return;
 		}
 		long expirestime = Long.parseLong(values[1]);
 		if(System.currentTimeMillis()>expirestime){
 			chain.doFilter(request, response);
+			Cookie cookie = WebUtils.deleteCookie("autologin", request.getContextPath());
+			response.addCookie(cookie);
 			return;
 		}
 		
 		//有效期没到检查cookie有效性
 		String username = values[0];
 		String client_md5 = values[2];
-			
-		UserBusinessService service = new UserBusinessServiceImpl();
+		
+		ServiceFactory sf = ServiceFactory.getInstance();
+		UserBusinessService service = sf.createService(UserBusinessService.class, null);
+		
 		user = service.findbyUsername(username);
 		if(user==null){
 			chain.doFilter(request, response);
+			Cookie cookie = WebUtils.deleteCookie("autologin", request.getContextPath());
+			response.addCookie(cookie);
 			return;
 		}
 		
 				
-		String server_md5 = WebUtils.autoLoginMD5(key,user.getPassword(),expirestime,user.getUsername());
+		String server_md5 = WebUtils.autoLoginMD5(key,user.getPassword(),expirestime,user.getUsername(),user.getAutologinkey());
 		
 		if(!server_md5.equals(client_md5) ){
 			chain.doFilter(request, response);
+			Cookie cookie = WebUtils.deleteCookie("autologin", request.getContextPath());
+			response.addCookie(cookie);
 			return;
 		}
 		

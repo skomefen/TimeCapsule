@@ -25,8 +25,8 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "insert into users(id,username,password,email,nickname) values(?,?,?,?,?)";
-			Object params[] = {user.getId(),user.getUsername(),user.getPassword(),user.getEmail(),user.getNickname()};
+			String sql = "insert into users(id,username,password,email,nickname,autologinkey) values(?,?,?,?,?,?)";
+			Object params[] = {user.getId(),user.getUsername(),user.getPassword(),user.getEmail(),user.getNickname(),user.getAutologinkey()};
 			runner.update(conn,sql,params);
 			JdbcUtils.commitTransaction();
 		}catch(Exception e){
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users where username=? and password=?";
+			String sql = "select id,username,password,email,nickname,autologinkey from users where username=? and password=?";
 			Object params[] = {username,password};
 			user = (User) runner.query(conn, sql, params, new BeanHandler(User.class));
 			JdbcUtils.commitTransaction();
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users where id=?";
+			String sql = "select id,username,password,email,nickname,autologinkey from users where id=?";
 			user = (User) runner.query(conn, sql, id, new BeanHandler(User.class));
 			JdbcUtils.commitTransaction();
 			return user;
@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users where username=?";
+			String sql = "select id,username,password,email,nickname,autologinkey from users where username=?";
 			user = (User) runner.query(conn, sql, username, new BeanHandler(User.class) );
 			JdbcUtils.commitTransaction();
 			if(user!=null){
@@ -106,8 +106,8 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "update users set username=?,password=?,email=?,nickname=? where id=?";
-			Object params[] = {user.getUsername(),user.getPassword(),user.getEmail(),user.getNickname(),user.getId()};
+			String sql = "update users set username=?,password=?,email=?,nickname=?,autologinkey=? where id=?";
+			Object params[] = {user.getUsername(),user.getPassword(),user.getEmail(),user.getNickname(),user.getAutologinkey(),user.getId()};
 			runner.update(conn,sql,params);
 			JdbcUtils.commitTransaction();
 		}catch(Exception e){
@@ -163,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 				conn = JdbcUtils.getConnection();
 				JdbcUtils.startTransaction();
 				QueryRunner runner = new QueryRunner();
-				String sql = "select id,username,password,email,nickname from users where email=?";
+				String sql = "select id,username,password,email,nickname,autologinkey from users where email=?";
 				user = (User) runner.query(conn, sql, email, new BeanHandler(User.class) );
 				JdbcUtils.commitTransaction();
 				if(user!=null){
@@ -220,7 +220,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users";
+			String sql = "select id,username,password,email,nickname,autologinkey from users";
 			list = (List<User>) runner.query(conn, sql, new BeanListHandler(User.class));
 			JdbcUtils.commitTransaction();
 			return list;
@@ -238,7 +238,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users where username=? && id!=?";
+			String sql = "select id,username,password,email,nickname,autologinkey from users where username=? && id!=?";
 			String[] parames = {username,id};
 			user = (User) runner.query(conn, sql, parames, new BeanHandler(User.class) );
 			JdbcUtils.commitTransaction();
@@ -260,7 +260,7 @@ public class UserDaoImpl implements UserDao {
 			conn = JdbcUtils.getConnection();
 			JdbcUtils.startTransaction();
 			QueryRunner runner = new QueryRunner();
-			String sql = "select id,username,password,email,nickname from users where email=? && id!=?";
+			String sql = "select id,username,password,email,nickname,autologinkey from users where email=? && id!=?";
 			String[] parames = {email,id};
 			user = (User) runner.query(conn, sql,parames , new BeanHandler(User.class) );
 			JdbcUtils.commitTransaction();

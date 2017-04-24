@@ -254,9 +254,9 @@ public class WebUtils {
 	}
 	
 	public static String autoLoginMD5(String key, String password, long expirestime,
-			String username) {
+			String username,String autologinkey) {
 		try{
-			String value = key+":" + password + ":" + expirestime +":"+ username;
+			String value = key+":" + password + ":" + expirestime +":"+ username+":"+autologinkey;
 			MessageDigest md = MessageDigest.getInstance("md5");
 			byte md5[] = md.digest(value.getBytes());
 			BASE64Encoder encode = new BASE64Encoder();
@@ -266,12 +266,19 @@ public class WebUtils {
 		}
 	}
 	
-	public static Cookie makeCookie(String username, String password, String path,String key,
-			int validtime) {
+	public static Cookie makeAutoLoginCookie(String username, String password, String path,String key,
+			int validtime,String autologinkey) {
 		long expirestime = System.currentTimeMillis()+ validtime*1000;
-		String value = username + ":" + expirestime + ":" + WebUtils.autoLoginMD5(key, password, expirestime, username);
+		String value = username + ":" + expirestime + ":" + WebUtils.autoLoginMD5(key, password, expirestime, username,autologinkey);
 		Cookie cookie = new Cookie("autologin", value);
 		cookie.setMaxAge(validtime);
+		cookie.setPath(path);
+		return cookie;
+	}
+	public static Cookie deleteCookie(String name, String path) {
+		String value = "";
+		Cookie cookie = new Cookie(name, value);
+		cookie.setMaxAge(0);
 		cookie.setPath(path);
 		return cookie;
 	}

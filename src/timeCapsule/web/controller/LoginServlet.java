@@ -35,15 +35,17 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			User user = service.login(username, password);
-			
+	
 			if(user!=null){
 				
+				user.setAutologinkey(WebUtils.generateID());
+				service.updateClientUser(user);
 				String key = f.getKey();
 				
 //				cookieÖµÉèÎªautologin=username:expirestime:md5(state:password:expirestime:username)
 //				key:isOK
 				
-				Cookie cookie = WebUtils.makeCookie(username, user.getPassword(), this.getServletContext().getContextPath(), key, validtime);
+				Cookie cookie = WebUtils.makeAutoLoginCookie(username, user.getPassword(), this.getServletContext().getContextPath(), key, validtime,user.getAutologinkey());
 				
 				response.addCookie(cookie);
 				

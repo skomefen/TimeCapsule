@@ -28,12 +28,15 @@ public interface UserBusinessService {
 
 	void deleteUser(String id);
 
-	void updateUser(User user) throws UserExistException, EmailExistException;
+	void updateUserWhereChangePasswd(User user) throws UserExistException, EmailExistException;
 
 	Map<String, User> getUserMapAll();
 
 	PageBean pageQuery(QueryInfo queryinfo);
 
 	List<Privilege> getUserAllPrivilege(User user);
+
+	void updateClientUser(User user) throws UserExistException,
+			EmailExistException;
 
 }
