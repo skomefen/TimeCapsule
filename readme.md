@@ -40,14 +40,13 @@
 	数据库源代码
 
 
-		create database timeCapsule;
-		use timeCapsule;
 		CREATE TABLE `users` (
 		  `id` varchar(40) NOT NULL,
 		  `username` varchar(40) NOT NULL,
 		  `password` varchar(40) NOT NULL,
 		  `email` varchar(40) NOT NULL,
 		  `nickname` varchar(40) NOT NULL,
+		  `autologinkey` varchar(40) DEFAULT NULL,
 		  PRIMARY KEY (`id`),
 		  UNIQUE KEY `username` (`username`),
 		  UNIQUE KEY `email` (`email`)
